@@ -15,11 +15,13 @@ db_dieuhoa = FAISS.load_local("FAISS_db/dieuhoa,tumat,quatsuoi", embeddings, all
 db_ghe = FAISS.load_local("FAISS_db/ghemassa", embeddings, allow_dangerous_deserialization=True)
 db_maygiat = FAISS.load_local("FAISS_db/maygiat", embeddings, allow_dangerous_deserialization=True)
 db_noichien = FAISS.load_local("FAISS_db/noichienkhongdau", embeddings, allow_dangerous_deserialization=True)
-
+db_all = FAISS.load_local("FAISS_db/db_all", embeddings, allow_dangerous_deserialization=True)
 
 prompt_main = '''Bạn là nhân viên bán hàng. Cửa hàng của bạn có 204 sản phẩm bao gồm Bàn là, Bàn ủi, máy sấy tóc, bình nước nóng, bình đun nước, bếp từ, công tắc ổ cắm, ghế massage daikosan, lò vi sóng, máy giặt, máy sấy, máy lọc không khí, máy lọc nước, máy xay, nồi chiên không dầu, nồi cơm điện, nồi áp suất, robot hút bụi, camera, webcam, thiết bị wifi, máy ép, tủ mát, quạt điều hòa không khí, máy làm sữa hạt, điều hòa, đèn năng lượng.
     Sử dụng các thông tin sau đây để trả lời câu hỏi của người dùng. Nếu bạn không biết câu trả lời, chỉ cần nói rằng không có thông tin trong dữ liệu, đừng cố bịa ra câu trả lời.'''
 double_dealing = '''Nếu không có thông tin trong context, chỉ cần trả lời không có thông tin trong dữ liệu, tuyệt đối không được bịa'''
+
+
 # text = retriever.get_relevant_documents('thông số của nồi rẻ nhất')
 def dennl(query, history, new_query):
     retriever = db_den.as_retriever(search_kwargs={"k": 4})
@@ -30,7 +32,7 @@ def dennl(query, history, new_query):
     context = '''Trong cừa hàng có 84 loại sản phẩm đèn năng lợng mặt trời, rẻ nhất là 'Bộ đèn pha led dùng pin năng lượng mặt trời Suntek SC-126'(286550 đ), đắt nhất là 'Đèn cao áp năng lượng mặt trời SUNTEK SP-S30, công suất 30W'(4677750 đ). ''' + context
     prompt = f'''
     {prompt_main}
-    
+
     Context: {context}
     {history}
     Human: {query}
@@ -106,7 +108,7 @@ def may_giat(query, history, new_query):
 
 
 def noi_chien(query, history, new_query):
-    retriever = db_maygiat.as_retriever(search_kwargs={"k": 4})
+    retriever = db_noichien.as_retriever(search_kwargs={"k": 4})
     relevant_documents = retriever.get_relevant_documents(new_query)
     page_contents = [doc.page_content for doc in relevant_documents]
     context = '\n'.join(page_contents)
@@ -398,8 +400,9 @@ def lo_vi_song(query, history, new_query):
     response = llm.invoke(prompt)
     return response.content
 
+
 def chat4all(query, history, new_query):
-    retriever = db_maygiat.as_retriever(search_kwargs={"k": 6}, search_type="mmr")
+    retriever = db_all.as_retriever(search_kwargs={"k": 6}, search_type="mmr")
     relevant_documents = retriever.get_relevant_documents(query)
     page_contents = [doc.page_content for doc in relevant_documents]
     context = '\n'.join(page_contents)
@@ -417,6 +420,7 @@ def chat4all(query, history, new_query):
     print(prompt)
     response = llm.invoke(prompt)
     return response.content
+
 
 def get_tool(query):
     prompt = f'''
@@ -451,6 +455,7 @@ def get_tool(query):
     match = re.search(r'\d+', output)
     return int(match.group())
 
+
 ham_dict = {
     1: ban_la,
     2: binh_nuoc,
@@ -474,7 +479,6 @@ ham_dict = {
 }
 
 
-
 def chatbot(query, history, new_query):
     tool = get_tool(new_query)
     print(tool)
@@ -484,8 +488,10 @@ def chatbot(query, history, new_query):
         # print()
         content = ham_dict[0](query, history, new_query)
     return content
+
+
 def chat_with_history(query, user_id, conversation_id):
-    human,ai = read_history(user_id, conversation_id)
+    human, ai = read_history(user_id, conversation_id)
     # ai = ai[:1000]
     prompt = f'''KHÔNG trả lời câu hỏi. Dưới đây là lịch sử trò chuyện và câu hỏi mới nhất của người dùng, có thể tham khảo ngữ cảnh trong lịch sử trò chuyện, hãy tạo một câu hỏi độc lập
     có thể hiểu được nếu không có lịch sử trò chuyện. Chỉ cần sửa lại câu hỏi nếu cần và nếu không thì trả lại như cũ:
@@ -495,17 +501,18 @@ def chat_with_history(query, user_id, conversation_id):
     Trả ra câu hỏi nguyên văn hoặc sửa lại nếu cần.
     new_query:
     '''
-    history =''
-    if human !='':
+    history = ''
+    new_query = query
+    if human != '':
         print('using history...')
         # print(prompt)
         start = time.time()
         llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
         new_query = llm.invoke(prompt).content
         end = time.time()
-        print('history: ',end - start)
+        print('history: ', end - start)
         history = f'''Human: {human}\nAI:{ai}'''
-    print("new_query: ",new_query)
+        print("new_query: ", new_query)
 
     very_final_answer = chatbot(query, history, new_query)
     update_history(user_id, conversation_id, query, very_final_answer)

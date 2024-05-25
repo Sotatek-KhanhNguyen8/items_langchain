@@ -19,7 +19,7 @@ for file_name, content in data.items():
         pathdb = f"FAISS_db/{file_name}"
         db.save_local(pathdb)
 
-chunks_all = text_splitter.split_text(content)
+chunks_all = text_splitter.split_text(data_all)
 db_all = FAISS.from_texts(chunks, embeddings)
 pathdb = f"FAISS_db/db_all"
 db_all.save_local(pathdb)
