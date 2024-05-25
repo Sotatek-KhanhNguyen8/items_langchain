@@ -18,9 +18,9 @@ for file_name, content in data.items():
         file_name = remove_accents(file_name)
         pathdb = f"FAISS_db/{file_name}"
         db.save_local(pathdb)
-
+print(data_all)
 chunks_all = text_splitter.split_text(data_all)
-db_all = FAISS.from_texts(chunks, embeddings)
+db_all = FAISS.from_texts(chunks_all, embeddings)
 pathdb = f"FAISS_db/db_all"
 db_all.save_local(pathdb)
 
