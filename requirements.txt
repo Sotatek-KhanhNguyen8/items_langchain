@@ -1,0 +1,10 @@
+langchain
+langchain-openai
+tiktoken
+sentence-transformers
+faiss-cpu
+gpt4all
+langchain langchain-community
+langchainhub
+langchain-openai
+langchain-chroma
