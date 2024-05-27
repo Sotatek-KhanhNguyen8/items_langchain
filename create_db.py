@@ -1,6 +1,6 @@
 from langchain_community.vectorstores import FAISS
 
-from utils import text_splitter, read_txt, read_all_txt_files, remove_accents
+from utils import text_splitter, read_txt, read_all_txt_files, remove_accents, text_splitter_sql
 from langchain.embeddings.openai import OpenAIEmbeddings
 embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
 data = read_all_txt_files('data/txt_file')
@@ -23,8 +23,10 @@ chunks_all = text_splitter.split_text(data_all)
 db_all = FAISS.from_texts(chunks_all, embeddings)
 pathdb = f"FAISS_db/db_all"
 db_all.save_local(pathdb)
-
-
+chunk_sql = text_splitter_sql.split_text(data_all)
+db_sql = FAISS.from_texts(chunk_sql, embeddings)
+pathdb = f"FAISS_db/db_sql"
+db_sql.save_local(pathdb)
 
 
 
