@@ -1,7 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
 from pydantic import BaseModel
-
+import streamlit as st
 from chatbot import chat_with_history
 
 # original_title = '<h1 style="font-family: serif; color:white; font-size: 20px;">Example</h1>' + \
@@ -42,69 +42,8 @@ from chatbot import chat_with_history
 #     submitted = st.form_submit_button('Run')
 #     if submitted:
 #         query = text
-#
-#         start = time.time()
-#         st.info(final_tool(query))
-#         # st.info(chat_with_history(query))
-#         end = time.time()
-#         print('tổng: ',end-start)
+#         st.info(chat_with_history(text, 'hehe', 'huhu'))
 
-# col1, col2, col3 = st.columns(3)
-# if submitted:
-#     query = text
-#     llm = ChatOpenAI(model="gpt-3.5-turbo-16k")
-#
-#     response2 = chain_openAI_all(query)
-#     with col1:
-#         st.header("Answer1")
-#         st.info(response2['result'])
-#         st.markdown('<style>div.st-df {width: 500px !important;}</style>', unsafe_allow_html=True)
-#     response1 = chain.invoke({"input": query})
-#     with col2:
-#         st.header("Answer2")
-#         st.info(response1['result'])
-#         st.markdown('<style>div.st-df {width: 500px !important;}</style>', unsafe_allow_html=True)
-#     if 'hông có thông tin' in response1['result']:
-#         with col3:
-#             st.header("Answer3")
-#             st.info(response2['result'])
-#             st.markdown('<style>div.st-df {width: 500px !important;}</style>', unsafe_allow_html=True)
-#     else:
-#         final_prompt = f"""
-#         Bạn là nhân sự của công ty sotatek chuyên trả lời các thắc mắc của nhân viên.
-#         Question {query}
-#         Tham khảo thông tin bên dưới để tổng hợp ra câu trả lời đầy đủ nhất:
-#         answer1: {response1['result']}
-#         answer2: {response2['result']}
-#         Hãy trả lời một cách chi tiết
-#         Answer:
-#         """
-#         response = llm.invoke(final_prompt)
-#         with col3:
-#             st.header("Answer3")
-#             st.info(response.content)
-#             st.markdown('<style>div.st-df {width: 500px !important;}</style>', unsafe_allow_html=True)
-        # st.info(final_tool(text))
-# def final_tool(query):
-#     llm=ChatOpenAI(model="gpt-3.5-turbo-16k")
-#     response1 = chain.invoke({"input": query})
-#     print(response1)
-#     if 'hông có thông tin' in response1['result']:
-#         response2 = chain_openAI_all(query)
-#         return response2['result']
-#     response2 = chain_openAI_all(query)
-#     print(response2)
-#     final_prompt =f"""
-#     Bạn là nhân sự của công ty sotatek chuyên trả lời các thắc mắc của nhân viên.
-#     Question {query}
-#     Tham khảo thông tin bên dưới để tổng hợp ra câu trả lời đầy đủ nhất:
-#     answer1: {response1['result']}
-#     answer2: {response2['result']}
-#     Hãy trả lời một cách chi tiết
-#     Answer:
-#     """
-#     response = llm.invoke(final_prompt)
-#     return response.content
 app = FastAPI()
 class TTSRequest(BaseModel):
     text: str

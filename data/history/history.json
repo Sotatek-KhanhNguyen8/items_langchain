@@ -1,8 +1,34 @@
 {
     "khandh": {
         "123": {
-            "human": "có nồi chiên không dầu nào 1700 W không",
-            "AI": "Không có thông tin về nồi chiên không dầu có công suất 1700W trong cửa hàng của chúng tôi."
+            "human": "giá của chúng như thế nào",
+            "AI": "Không có thông tin trong dữ liệu."
+        }
+    },
+    "4": {
+        "sad": {
+            "human": "bên bạn có những mặt hàng nào",
+            "AI": "Cửa hàng của chúng tôi có các sản phẩm máy hút bụi sau:\n1. Máy Hút Bụi Bluestone Vcb-8067\n2. Robot hút bụi NEATO BOTVAC CONNECTED D401 ĐEN\n3. Robot hút bụi lau nhà Ecovacs Deebot X1 Omni - xám\n\nĐó là tất cả các sản phẩm trong danh mục máy hút bụi mà chúng tôi hiện đang có."
+        }
+    },
+    "14": {
+        "sad": {
+            "human": "bên bạn bán những sản phẩm nào",
+            "AI": "Cửa hàng của chúng tôi bán các sản phẩm sau đây: Bàn là, Bàn ủi, máy sấy tóc, bình nước nóng, bình đun nước, bếp từ, công tắc ổ cắm, ghế massage daikosan, lò vi sóng, máy giặt, máy sấy, máy lọc không khí, máy lọc nước, máy xay, nồi chiên không dầu, nồi cơm điện, nồi áp suất, robot hút bụi, camera, webcam, thiết bị wifi, máy ép, tủ mát, quạt điều hòa không khí, máy làm sữa hạt, điều hòa, đèn năng lượng."
+        },
+        "sad1": {
+            "human": "nồi chiên nào rẻ nhất",
+            "AI": "Nồi chiên rẻ nhất trong cửa hàng là \"Nồi chiên không dầu KALITE Q5\" với giá là 1798170 đ."
+        },
+        "saqd1": {
+            "human": "liệt kê cho tôi hai sản phẩm điều hòa và 2 sản phẩm đèn năng lượng mặt trời bán nhiều nhất",
+            "AI": "Hiện tại không có thông tin về sản phẩm điều hòa và đèn năng lượng mặt trời bán nhiều nhất trong cửa hàng của chúng tôi."
+        }
+    },
+    "hehe": {
+        "huhu": {
+            "human": "bên bạn có những sản phẩm nào",
+            "AI": "Bên mình có 204 sản phẩm bao gồm Bàn là, Bàn ủi, máy sấy tóc, bình nước nóng, bình đun nước, bếp từ, công tắc ổ cắm, ghế massage daikosan, lò vi sóng, máy giặt, máy sấy, máy lọc không khí, máy lọc nước, máy xay, nồi chiên không dầu, nồi cơm điện, nồi áp suất, robot hút bụi, camera, webcam, thiết bị wifi, máy ép, tủ mát, quạt điều hòa không khí, máy làm sữa hạt, điều hòa, đèn năng lượng.Bạn có thể xem thông tin chi tiết về từng sản phẩm trong cửa hàng của chúng tôi."
         }
     }
 }
