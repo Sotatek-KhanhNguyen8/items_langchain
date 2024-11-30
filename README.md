@@ -1,4 +1,3 @@
-### python 3.11.4
+### python 3.10.5
 ### pip install -r requirements.txt
-### set openai key
-### python main.py
+### uvicorn main:app
